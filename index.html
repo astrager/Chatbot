@@ -24,11 +24,31 @@
     </div>
 
     <script>
-        function handleCredentialResponse(response) {
+        async function handleCredentialResponse(response) {
             // Handle the Google Sign-In response
-            // You would verify the token with your backend here
-            document.getElementById('login-container').style.display = 'none';
-            document.getElementById('chat-container').style.display = 'block';
+            const token = response.credential;
+
+            try {
+                const res = await fetch('https://chatbot-ra9r1dnlh-astragers-projects.vercel.app/verify-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ token })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    document.getElementById('login-container').style.display = 'none';
+                    document.getElementById('chat-container').style.display = 'block';
+                } else {
+                    alert('Token verification failed');
+                }
+            } catch (error) {
+                console.error('Error verifying token:', error);
+                alert('An error occurred while verifying the token');
+            }
         }
 
         function sendMessage() {
