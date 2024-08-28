@@ -1,4 +1,4 @@
-const express = require('express'); // Ensure express is required
+const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
@@ -17,17 +17,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/auth/google/callback', async (req, res) => {
   const { credential } = req.query;
   try {
-    const ticket = await client.verifyIdToken({
-      idToken: credential,
-      audience: "8381265973-gqdpberiqoho8vupnn5hdd7li4opc345.apps.googleusercontent.com",
-    });
-    const payload = ticket.getPayload();
-    // Here you can create a session for the user or generate a JWT token
-    // For now, we'll just redirect to the main page
-    res.redirect('/');
+	const ticket = await client.verifyIdToken({
+	  idToken: credential,
+	  audience: "8381265973-gqdpberiqoho8vupnn5hdd7li4opc345.apps.googleusercontent.com",
+	});
+	const payload = ticket.getPayload();
+	// Here you can create a session for the user or generate a JWT token
+	// For now, we'll just redirect to the main page
+	res.redirect('/');
   } catch (error) {
-    console.error('Error verifying Google token:', error);
-    res.status(400).send('Invalid token');
+	console.error('Error verifying Google token:', error);
+	res.status(400).send('Invalid token');
   }
 });
 
