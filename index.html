@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Website</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+    <div id="login-container">
+        <h1>Welcome to the Chatbot</h1>
+        <p>Please sign in with Google to access the chatbot.</p>
+        <div id="g_id_onload"
+             data-client_id="YOUR_GOOGLE_CLIENT_ID"
+             data-callback="handleCredentialResponse">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
+    </div>
+
+    <div id="chat-container" style="display: none;">
+        <div id="chat-messages"></div>
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function handleCredentialResponse(response) {
+            // Handle the Google Sign-In response
+            // You would verify the token with your backend here
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('chat-container').style.display = 'block';
+        }
+
+        function sendMessage() {
+            // Implement chat functionality here
+        }
+    </script>
+</body>
+</html>
